@@ -1,0 +1,13 @@
+name: aiperf
+version: 0.1.0
+description: Evidence-backed Chrome/React runtime performance profiling with aiperf.
+triggers:
+  - performance trace
+  - Chrome trace
+  - React performance
+  - runtime profiling
+  - long task
+  - jank
+  - realtime performance
+instructions: |
+  Use aiperf for Chrome/React performance investigations. Do not read raw giant traces manually. Do not send raw traces to LLMs. Cite finding/evidence IDs for all performance claims. Reprofile and compare after changes.
