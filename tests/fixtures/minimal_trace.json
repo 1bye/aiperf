@@ -1,0 +1,9 @@
+{
+  "metadata": { "startTime": "2026-06-05T00:00:00Z", "cpuThrottling": 4, "networkThrottling": "No throttling", "hardwareConcurrency": 8, "hostDPR": 2 },
+  "traceEvents": [
+    { "name": "process_name", "ph": "M", "ts": 0, "pid": 1, "tid": 10, "args": { "name": "Renderer" } },
+    { "name": "thread_name", "ph": "M", "ts": 0, "pid": 1, "tid": 10, "args": { "name": "CrRendererMain" } },
+    { "name": "TracingStartedInBrowser", "ph": "I", "ts": 0, "pid": 1, "tid": 10, "args": { "data": { "frames": [{ "url": "http://localhost:3000/dashboard?token=secret" }] } } },
+    { "name": "RunTask", "cat": "devtools.timeline", "ph": "X", "ts": 1000, "dur": 10000, "pid": 1, "tid": 10, "args": {} }
+  ]
+}

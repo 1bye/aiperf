@@ -1,0 +1,690 @@
+{
+  "before": {
+    "metadata": {
+      "trace_path": "tests/fixtures/compare_before.json",
+      "project_root": ".",
+      "network_sidecar": null,
+      "file_size_bytes": 660,
+      "page_url": null,
+      "start_time": null,
+      "cpu_throttling": null,
+      "network_throttling": null,
+      "host_dpr": null,
+      "hardware_concurrency": null
+    },
+    "coverage": {
+      "trace_file_path": "tests/fixtures/compare_before.json",
+      "trace_file_size_bytes": 660,
+      "event_count_scanned": 4,
+      "trace_duration_ms": 121.0,
+      "pids": [
+        1
+      ],
+      "tids_analyzed": [
+        {
+          "pid": 1,
+          "tid": 10,
+          "thread_name": "CrRendererMain",
+          "process_name": null,
+          "event_count": 4
+        }
+      ],
+      "selected_main_thread": {
+        "pid": 1,
+        "tid": 10,
+        "confidence": "high",
+        "explanation": "Selected thread name Some(\"CrRendererMain\") as renderer/browser main thread."
+      },
+      "data_loss": false,
+      "unknown_event_name_count": 1,
+      "top_event_names_by_total_duration": [
+        {
+          "name": "RunTask",
+          "total_ms": 120.0,
+          "count": 1,
+          "category": "js"
+        },
+        {
+          "name": "FunctionCall",
+          "total_ms": 90.0,
+          "count": 1,
+          "category": "js"
+        },
+        {
+          "name": "Layout",
+          "total_ms": 20.0,
+          "count": 1,
+          "category": "layout"
+        },
+        {
+          "name": "thread_name",
+          "total_ms": 0.0,
+          "count": 1,
+          "category": "unknown"
+        }
+      ],
+      "top_event_names_by_count": [
+        {
+          "name": "thread_name",
+          "total_ms": 0.0,
+          "count": 1,
+          "category": "unknown"
+        },
+        {
+          "name": "FunctionCall",
+          "total_ms": 90.0,
+          "count": 1,
+          "category": "js"
+        },
+        {
+          "name": "RunTask",
+          "total_ms": 120.0,
+          "count": 1,
+          "category": "js"
+        },
+        {
+          "name": "Layout",
+          "total_ms": 20.0,
+          "count": 1,
+          "category": "layout"
+        }
+      ],
+      "time_buckets": [
+        {
+          "index": 0,
+          "start_ms": 0.0,
+          "end_ms": 1000.0,
+          "main_thread_busy_ms": 120.0,
+          "js_ms": 210.0,
+          "style_ms": 0.0,
+          "layout_ms": 20.0,
+          "paint_ms": 0.0,
+          "composite_ms": 0.0,
+          "gc_ms": 0.0,
+          "react_ms": 0.0,
+          "network_adjacent_ms": 0.0,
+          "unknown_ms": 0.0,
+          "busy_pct": 12.0
+        }
+      ],
+      "anomaly_windows": [
+        {
+          "kind": "highest_main_thread_busy_pct",
+          "bucket_index": 0,
+          "start_ms": 0.0,
+          "end_ms": 1000.0,
+          "value_ms": 12.0,
+          "summary": "highest_main_thread_busy_pct at 0.00-1000.00ms value 12.00"
+        },
+        {
+          "kind": "highest_js_time",
+          "bucket_index": 0,
+          "start_ms": 0.0,
+          "end_ms": 1000.0,
+          "value_ms": 210.0,
+          "summary": "highest_js_time at 0.00-1000.00ms value 210.00"
+        },
+        {
+          "kind": "highest_style_layout_time",
+          "bucket_index": 0,
+          "start_ms": 0.0,
+          "end_ms": 1000.0,
+          "value_ms": 20.0,
+          "summary": "highest_style_layout_time at 0.00-1000.00ms value 20.00"
+        },
+        {
+          "kind": "highest_paint_composite_time",
+          "bucket_index": 0,
+          "start_ms": 0.0,
+          "end_ms": 1000.0,
+          "value_ms": 0.0,
+          "summary": "highest_paint_composite_time at 0.00-1000.00ms value 0.00"
+        },
+        {
+          "kind": "highest_gc_time",
+          "bucket_index": 0,
+          "start_ms": 0.0,
+          "end_ms": 1000.0,
+          "value_ms": 0.0,
+          "summary": "highest_gc_time at 0.00-1000.00ms value 0.00"
+        },
+        {
+          "kind": "highest_react_time",
+          "bucket_index": 0,
+          "start_ms": 0.0,
+          "end_ms": 1000.0,
+          "value_ms": 0.0,
+          "summary": "highest_react_time at 0.00-1000.00ms value 0.00"
+        },
+        {
+          "kind": "densest_network_burst",
+          "bucket_index": 0,
+          "start_ms": 0.0,
+          "end_ms": 1000.0,
+          "value_ms": 0.0,
+          "summary": "densest_network_burst at 0.00-1000.00ms value 0.00"
+        }
+      ],
+      "long_task_count": 1,
+      "react_event_count": 0,
+      "network_sidecar_event_count": 0,
+      "react_tracks_present": false,
+      "source_maps_present": false,
+      "trace_appears_truncated": false
+    },
+    "findings": [
+      {
+        "id": "finding_001",
+        "title": "Main-thread long tasks dominate runtime trace",
+        "severity": "medium",
+        "confidence": "medium",
+        "impact": {
+          "total_ms": 120.0,
+          "worst_ms": 120.0,
+          "count": 1,
+          "affected_windows": [
+            [
+              1.0,
+              121.0
+            ]
+          ]
+        },
+        "cause_chain": [
+          {
+            "step": "main_thread_long_task",
+            "summary": "120ms task blocks main thread with JS 90.00ms React 0.00ms style/layout 20.00ms",
+            "evidence_ids": [
+              "ev_000001"
+            ]
+          }
+        ],
+        "evidence": [
+          {
+            "evidence_id": "ev_000001",
+            "trace_event_id": 1,
+            "name": "RunTask",
+            "ts_ms": 1.0,
+            "dur_ms": 120.0,
+            "pid": 1,
+            "tid": 10,
+            "category": "js",
+            "source": null
+          }
+        ],
+        "recommendations": [
+          {
+            "title": "Reduce dominant main-thread work inside long tasks",
+            "why": "Long task breakdown shows blocking JS/React/layout work tied to evidence events.",
+            "files_to_inspect": [
+              "src/before.ts"
+            ],
+            "suggested_change": "Split work across frames, remove unnecessary renders/layout reads, and move parsing/normalization to a worker when CPU work dominates.",
+            "risk": "medium"
+          }
+        ],
+        "verification": {
+          "how_to_measure_after_fix": "Record same user flow, run `aiperf audit` on new trace, then `aiperf compare before after`.",
+          "expected_metric_change": "Reduced long tasks over threshold with same or better analysis coverage and no trace data loss."
+        }
+      },
+      {
+        "id": "finding_002",
+        "title": "Expensive style/layout work found",
+        "severity": "medium",
+        "confidence": "medium",
+        "impact": {
+          "total_ms": 20.0,
+          "worst_ms": 20.0,
+          "count": 1,
+          "affected_windows": [
+            [
+              100.0,
+              120.0
+            ]
+          ]
+        },
+        "cause_chain": [
+          {
+            "step": "layout_paint",
+            "summary": "Layout takes 20.00ms dirty Some(100)/Some(200)",
+            "evidence_ids": [
+              "ev_000003"
+            ]
+          }
+        ],
+        "evidence": [
+          {
+            "evidence_id": "ev_000003",
+            "trace_event_id": 3,
+            "name": "Layout",
+            "ts_ms": 100.0,
+            "dur_ms": 20.0,
+            "pid": 1,
+            "tid": 10,
+            "category": "layout",
+            "source": null
+          }
+        ],
+        "recommendations": [
+          {
+            "title": "Remove forced layout/style work from interaction path",
+            "why": "Style/layout evidence is nested near JS work and consumes meaningful task time.",
+            "files_to_inspect": [
+              "src/before.ts"
+            ],
+            "suggested_change": "Batch DOM reads before writes, reduce measured DOM size, virtualize large lists, and reduce IntersectionObserver targets.",
+            "risk": "medium"
+          }
+        ],
+        "verification": {
+          "how_to_measure_after_fix": "Record same user flow, run `aiperf audit` on new trace, then `aiperf compare before after`.",
+          "expected_metric_change": "Reduced style/layout duration and dirty object counts with same or better analysis coverage and no trace data loss."
+        }
+      }
+    ],
+    "long_tasks": [
+      {
+        "task_id": "long_task_001",
+        "event_id": 1,
+        "ts_ms": 1.0,
+        "dur_ms": 120.0,
+        "breakdown": {
+          "js_ms": 90.0,
+          "react_ms": 0.0,
+          "style_ms": 0.0,
+          "layout_ms": 20.0,
+          "paint_composite_ms": 0.0,
+          "gc_ms": 0.0,
+          "parse_compile_ms": 0.0,
+          "unknown_ms": 10.0
+        },
+        "child_event_breakdown": [
+          {
+            "name": "FunctionCall",
+            "total_ms": 90.0,
+            "count": 1,
+            "category": "js"
+          },
+          {
+            "name": "Layout",
+            "total_ms": 20.0,
+            "count": 1,
+            "category": "layout"
+          }
+        ],
+        "top_source_functions": [
+          {
+            "function": "slowBefore",
+            "url": "src/before.ts",
+            "total_ms": 90.0,
+            "count": 1,
+            "source_type": "app"
+          }
+        ],
+        "preceding_network_events": [],
+        "following_rendering_events": []
+      }
+    ],
+    "react": {
+      "tracks_present": false,
+      "event_count": 0,
+      "inferred_event_count": 0,
+      "long_commits": [],
+      "component_hotspots": [],
+      "cascading_updates": []
+    },
+    "realtime": {
+      "sidecar_event_count": 0,
+      "bursts": [],
+      "correlations": []
+    },
+    "scroll": {
+      "task_count": 0,
+      "avg_ms": 0.0,
+      "p50_ms": 0.0,
+      "p75_ms": 0.0,
+      "p90_ms": 0.0,
+      "p95_ms": 0.0,
+      "p99_ms": 0.0,
+      "max_ms": 0.0,
+      "breakdown": {
+        "js_ms": 0.0,
+        "react_ms": 0.0,
+        "style_ms": 0.0,
+        "layout_ms": 0.0,
+        "paint_composite_ms": 0.0,
+        "gc_ms": 0.0,
+        "parse_compile_ms": 0.0,
+        "unknown_ms": 0.0
+      },
+      "layout_thrashing_tasks": 0,
+      "intersection_observer_events": 0
+    },
+    "layout": {
+      "expensive_events": [
+        {
+          "event_id": 3,
+          "name": "Layout",
+          "ts_ms": 100.0,
+          "dur_ms": 20.0,
+          "dirty_objects": 100,
+          "total_objects": 200,
+          "nearby_js": [
+            {
+              "function": "slowBefore",
+              "url": "src/before.ts",
+              "total_ms": 90.0,
+              "count": 1,
+              "source_type": "app"
+            }
+          ]
+        }
+      ],
+      "forced_reflow_candidates": [
+        {
+          "event_id": 3,
+          "name": "Layout",
+          "ts_ms": 100.0,
+          "dur_ms": 20.0,
+          "dirty_objects": 100,
+          "total_objects": 200,
+          "nearby_js": [
+            {
+              "function": "slowBefore",
+              "url": "src/before.ts",
+              "total_ms": 90.0,
+              "count": 1,
+              "source_type": "app"
+            }
+          ]
+        }
+      ],
+      "total_style_ms": -0.0,
+      "total_layout_ms": 20.0
+    },
+    "gc": {
+      "events": [],
+      "total_ms": -0.0
+    },
+    "cpu_profile": {
+      "functions": [],
+      "total_sample_ms": -0.0,
+      "app_ms": -0.0,
+      "third_party_ms": -0.0,
+      "react_runtime_ms": -0.0,
+      "native_ms": -0.0,
+      "unresolved_or_minified_frames": 0
+    },
+    "warnings": [
+      "Network sidecar absent; realtime/WebSocket correlation limited to trace events.",
+      "React Performance Tracks absent; React findings use lower-confidence inference when stack data exists.",
+      "Source maps absent or not found; code-level confidence is limited for bundled/minified frames."
+    ]
+  },
+  "after": {
+    "metadata": {
+      "trace_path": "tests/fixtures/compare_after.json",
+      "project_root": ".",
+      "network_sidecar": null,
+      "file_size_bytes": 472,
+      "page_url": null,
+      "start_time": null,
+      "cpu_throttling": null,
+      "network_throttling": null,
+      "host_dpr": null,
+      "hardware_concurrency": null
+    },
+    "coverage": {
+      "trace_file_path": "tests/fixtures/compare_after.json",
+      "trace_file_size_bytes": 472,
+      "event_count_scanned": 3,
+      "trace_duration_ms": 41.0,
+      "pids": [
+        1
+      ],
+      "tids_analyzed": [
+        {
+          "pid": 1,
+          "tid": 10,
+          "thread_name": "CrRendererMain",
+          "process_name": null,
+          "event_count": 3
+        }
+      ],
+      "selected_main_thread": {
+        "pid": 1,
+        "tid": 10,
+        "confidence": "high",
+        "explanation": "Selected thread name Some(\"CrRendererMain\") as renderer/browser main thread."
+      },
+      "data_loss": false,
+      "unknown_event_name_count": 1,
+      "top_event_names_by_total_duration": [
+        {
+          "name": "RunTask",
+          "total_ms": 40.0,
+          "count": 1,
+          "category": "js"
+        },
+        {
+          "name": "FunctionCall",
+          "total_ms": 30.0,
+          "count": 1,
+          "category": "js"
+        },
+        {
+          "name": "thread_name",
+          "total_ms": 0.0,
+          "count": 1,
+          "category": "unknown"
+        }
+      ],
+      "top_event_names_by_count": [
+        {
+          "name": "thread_name",
+          "total_ms": 0.0,
+          "count": 1,
+          "category": "unknown"
+        },
+        {
+          "name": "FunctionCall",
+          "total_ms": 30.0,
+          "count": 1,
+          "category": "js"
+        },
+        {
+          "name": "RunTask",
+          "total_ms": 40.0,
+          "count": 1,
+          "category": "js"
+        }
+      ],
+      "time_buckets": [
+        {
+          "index": 0,
+          "start_ms": 0.0,
+          "end_ms": 1000.0,
+          "main_thread_busy_ms": 40.0,
+          "js_ms": 70.0,
+          "style_ms": 0.0,
+          "layout_ms": 0.0,
+          "paint_ms": 0.0,
+          "composite_ms": 0.0,
+          "gc_ms": 0.0,
+          "react_ms": 0.0,
+          "network_adjacent_ms": 0.0,
+          "unknown_ms": 0.0,
+          "busy_pct": 4.0
+        }
+      ],
+      "anomaly_windows": [
+        {
+          "kind": "highest_main_thread_busy_pct",
+          "bucket_index": 0,
+          "start_ms": 0.0,
+          "end_ms": 1000.0,
+          "value_ms": 4.0,
+          "summary": "highest_main_thread_busy_pct at 0.00-1000.00ms value 4.00"
+        },
+        {
+          "kind": "highest_js_time",
+          "bucket_index": 0,
+          "start_ms": 0.0,
+          "end_ms": 1000.0,
+          "value_ms": 70.0,
+          "summary": "highest_js_time at 0.00-1000.00ms value 70.00"
+        },
+        {
+          "kind": "highest_style_layout_time",
+          "bucket_index": 0,
+          "start_ms": 0.0,
+          "end_ms": 1000.0,
+          "value_ms": 0.0,
+          "summary": "highest_style_layout_time at 0.00-1000.00ms value 0.00"
+        },
+        {
+          "kind": "highest_paint_composite_time",
+          "bucket_index": 0,
+          "start_ms": 0.0,
+          "end_ms": 1000.0,
+          "value_ms": 0.0,
+          "summary": "highest_paint_composite_time at 0.00-1000.00ms value 0.00"
+        },
+        {
+          "kind": "highest_gc_time",
+          "bucket_index": 0,
+          "start_ms": 0.0,
+          "end_ms": 1000.0,
+          "value_ms": 0.0,
+          "summary": "highest_gc_time at 0.00-1000.00ms value 0.00"
+        },
+        {
+          "kind": "highest_react_time",
+          "bucket_index": 0,
+          "start_ms": 0.0,
+          "end_ms": 1000.0,
+          "value_ms": 0.0,
+          "summary": "highest_react_time at 0.00-1000.00ms value 0.00"
+        },
+        {
+          "kind": "densest_network_burst",
+          "bucket_index": 0,
+          "start_ms": 0.0,
+          "end_ms": 1000.0,
+          "value_ms": 0.0,
+          "summary": "densest_network_burst at 0.00-1000.00ms value 0.00"
+        }
+      ],
+      "long_task_count": 0,
+      "react_event_count": 0,
+      "network_sidecar_event_count": 0,
+      "react_tracks_present": false,
+      "source_maps_present": false,
+      "trace_appears_truncated": false
+    },
+    "findings": [
+      {
+        "id": "finding_001",
+        "title": "No dominant supported performance root cause found",
+        "severity": "info",
+        "confidence": "low",
+        "impact": {
+          "total_ms": 0.0,
+          "worst_ms": 0.0,
+          "count": 0,
+          "affected_windows": []
+        },
+        "cause_chain": [
+          {
+            "step": "analysis_coverage",
+            "summary": "Trace scanned, but deterministic analyzers did not find threshold-crossing long task, React, realtime, layout, or GC evidence.",
+            "evidence_ids": []
+          }
+        ],
+        "evidence": [],
+        "recommendations": [],
+        "verification": {
+          "how_to_measure_after_fix": "Record same user flow, run `aiperf audit` on new trace, then `aiperf compare before after`.",
+          "expected_metric_change": "Reduced same audit command with same or better analysis coverage and no trace data loss."
+        }
+      }
+    ],
+    "long_tasks": [],
+    "react": {
+      "tracks_present": false,
+      "event_count": 0,
+      "inferred_event_count": 0,
+      "long_commits": [],
+      "component_hotspots": [],
+      "cascading_updates": []
+    },
+    "realtime": {
+      "sidecar_event_count": 0,
+      "bursts": [],
+      "correlations": []
+    },
+    "scroll": {
+      "task_count": 0,
+      "avg_ms": 0.0,
+      "p50_ms": 0.0,
+      "p75_ms": 0.0,
+      "p90_ms": 0.0,
+      "p95_ms": 0.0,
+      "p99_ms": 0.0,
+      "max_ms": 0.0,
+      "breakdown": {
+        "js_ms": 0.0,
+        "react_ms": 0.0,
+        "style_ms": 0.0,
+        "layout_ms": 0.0,
+        "paint_composite_ms": 0.0,
+        "gc_ms": 0.0,
+        "parse_compile_ms": 0.0,
+        "unknown_ms": 0.0
+      },
+      "layout_thrashing_tasks": 0,
+      "intersection_observer_events": 0
+    },
+    "layout": {
+      "expensive_events": [],
+      "forced_reflow_candidates": [],
+      "total_style_ms": -0.0,
+      "total_layout_ms": -0.0
+    },
+    "gc": {
+      "events": [],
+      "total_ms": -0.0
+    },
+    "cpu_profile": {
+      "functions": [],
+      "total_sample_ms": -0.0,
+      "app_ms": -0.0,
+      "third_party_ms": -0.0,
+      "react_runtime_ms": -0.0,
+      "native_ms": -0.0,
+      "unresolved_or_minified_frames": 0
+    },
+    "warnings": [
+      "Network sidecar absent; realtime/WebSocket correlation limited to trace events.",
+      "React Performance Tracks absent; React findings use lower-confidence inference when stack data exists.",
+      "Source maps absent or not found; code-level confidence is limited for bundled/minified frames."
+    ]
+  },
+  "deltas": {
+    "long_tasks": -1,
+    "total_busy_ms": -80.0,
+    "worst_long_task_ms": -120.0,
+    "react_events": 0,
+    "websocket_bursts": 0
+  },
+  "regressions": [],
+  "improvements": [
+    "long task count decreased by 1.00",
+    "main-thread busy ms decreased by 80.00",
+    "worst long task ms decreased by 120.00"
+  ],
+  "changed_root_causes": [
+    "No dominant supported performance root cause found"
+  ],
+  "pr_summary": "Overall: Improved. Long tasks -1, busy -80.00ms, worst long task -120.00ms, React events +0, network bursts +0."
+}

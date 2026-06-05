@@ -1,0 +1,8 @@
+{
+  "traceEvents": [
+    { "name": "thread_name", "ph": "M", "ts": 0, "pid": 1, "tid": 10, "args": { "name": "CrRendererMain" } },
+    { "name": "RunTask", "cat": "devtools.timeline", "ph": "X", "ts": 1000, "dur": 120000, "pid": 1, "tid": 10, "args": {} },
+    { "name": "FunctionCall", "cat": "devtools.timeline", "ph": "X", "ts": 5000, "dur": 90000, "pid": 1, "tid": 10, "args": { "data": { "callFrame": { "functionName": "slowBefore", "url": "src/before.ts" } } } },
+    { "name": "Layout", "cat": "devtools.timeline", "ph": "X", "ts": 100000, "dur": 20000, "pid": 1, "tid": 10, "args": { "beginData": { "dirtyObjects": 100, "totalObjects": 200 } } }
+  ]
+}
