@@ -1,17 +1,53 @@
 use crate::trace::{MainThreadSelection, TraceStore, event_store::is_task_name};
 
 pub fn detect_main_thread(store: &TraceStore) -> MainThreadSelection {
-    if let Some(t) = store.threads.iter().find(|t| {
-        t.thread_name
-            .as_deref()
-            .is_some_and(|n| n.contains("CrRendererMain") || n.contains("CrBrowserMain"))
-    }) {
+    if let Some(t) = store
+        .threads
+        .iter()
+        .filter(|t| t.thread_name.as_deref() == Some("CrRendererMain"))
+        .max_by_key(|t| t.event_count)
+    {
         return MainThreadSelection {
             pid: t.pid,
             tid: t.tid,
             confidence: "high".to_string(),
             explanation: format!(
-                "Selected thread name {:?} as renderer/browser main thread.",
+                "Selected renderer main thread {:?} in process {:?} with {} events.",
+                t.thread_name, t.process_name, t.event_count
+            ),
+        };
+    }
+    if let Some(t) = store
+        .threads
+        .iter()
+        .filter(|t| {
+            t.process_name.as_deref() == Some("Renderer")
+                && t.thread_name.as_deref().is_some_and(|n| n.contains("Main"))
+        })
+        .max_by_key(|t| t.event_count)
+    {
+        return MainThreadSelection {
+            pid: t.pid,
+            tid: t.tid,
+            confidence: "medium".to_string(),
+            explanation: format!(
+                "Selected renderer process main-like thread {:?} with {} events.",
+                t.thread_name, t.event_count
+            ),
+        };
+    }
+    if let Some(t) = store
+        .threads
+        .iter()
+        .filter(|t| t.thread_name.as_deref() == Some("CrBrowserMain"))
+        .max_by_key(|t| t.event_count)
+    {
+        return MainThreadSelection {
+            pid: t.pid,
+            tid: t.tid,
+            confidence: "medium".to_string(),
+            explanation: format!(
+                "No renderer main thread found; selected browser main thread {:?}.",
                 t.thread_name
             ),
         };

@@ -33,8 +33,20 @@ impl TraceStore {
                 .then(a.event_id.cmp(&b.event_id))
         });
         assign_parent_ids(&mut events);
-        let origin_ts_us = events.iter().map(|e| e.ts_us).fold(f64::INFINITY, f64::min);
-        let end_ts_us = events.iter().map(|e| e.end_us).fold(0.0_f64, f64::max);
+        let range_events: Vec<&TraceEvent> = events.iter().filter(|e| is_timing_event(e)).collect();
+        let range_source: Vec<&TraceEvent> = if range_events.is_empty() {
+            events.iter().collect()
+        } else {
+            range_events
+        };
+        let origin_ts_us = range_source
+            .iter()
+            .map(|e| e.ts_us)
+            .fold(f64::INFINITY, f64::min);
+        let end_ts_us = range_source
+            .iter()
+            .map(|e| e.end_us.max(e.ts_us))
+            .fold(0.0_f64, f64::max);
         let origin_ts_us = if origin_ts_us.is_finite() {
             origin_ts_us
         } else {
@@ -145,6 +157,10 @@ impl TraceStore {
 
 pub fn is_task_name(name: &str) -> bool {
     matches!(name, "RunTask" | "ThreadControllerImpl::RunTask" | "Task")
+}
+
+fn is_timing_event(e: &TraceEvent) -> bool {
+    e.pid != 0 && e.phase != "M" && !e.name.ends_with("_name")
 }
 
 fn assign_parent_ids(events: &mut [TraceEvent]) {
